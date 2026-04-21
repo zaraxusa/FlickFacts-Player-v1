@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>FlickFacts Player</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080a0f;
+    --surface: #0f1218;
+    --surface2: #161b24;
+    --border: #1e2530;
+    --accent: #e8b84b;
+    --accent2: #ff6b35;
+    --text: #e8eaf0;
+    --muted: #6b7280;
+    --player-h: 56.25vw;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── HEADER ── */
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 24px;
+    border-bottom: 1px solid var(--border);
+    background: rgba(8,10,15,0.95);
+    backdrop-filter: blur(12px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    letter-spacing: 2px;
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .logo span { color: var(--text); }
+  .back-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: color .2s;
+  }
+  .back-btn:hover { color: var(--text); }
+  .back-btn svg { width:16px; height:16px; }
+
+  /* ── BACKDROP ── */
+  .backdrop-wrap {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+  }
+  #backdrop-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 1s;
+    filter: blur(2px) brightness(0.15);
+  }
+
+  /* ── MAIN LAYOUT ── */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 24px 16px 60px;
+  }
+
+  /* ── MOVIE INFO STRIP ── */
+  .movie-strip {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+    padding: 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+  }
+  #strip-poster {
+    width: 54px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 6px;
+    flex-shrink: 0;
+    background: var(--surface2);
+  }
+  .strip-info { flex: 1; min-width: 0; }
+  #strip-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 1px;
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .strip-meta {
+    display: flex;
+    gap: 10px;
+    margin-top: 4px;
+    flex-wrap: wrap;
+  }
+  .tag {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 20px;
+    background: var(--surface2);
+    color: var(--muted);
+    border: 1px solid var(--border);
+  }
+  .tag.gold { background: rgba(232,184,75,0.12); color: var(--accent); border-color: rgba(232,184,75,0.3); }
+
+  /* ── TV SEASON PICKER ── */
+  #ep-controls {
+    display: none;
+    gap: 10px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+  #ep-controls.show { display: flex; }
+  .ep-select {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+    outline: none;
+    flex: 1;
+    min-width: 140px;
+  }
+  .ep-select:focus { border-color: var(--accent); }
+
+  /* ── PLAYER BOX ── */
+  .player-wrap {
+    position: relative;
+    width: 100%;
+    padding-top: min(var(--player-h), 560px);
+    background: #000;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: 0 0 60px rgba(0,0,0,0.8);
+  }
+  @media(min-width:768px) {
+    .player-wrap { padding-top: min(56.25vw, 560px); }
+  }
+  #player-frame {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  /* Play overlay (smartlink fires on click) */
+  #play-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(8,10,15,0.75);
+    cursor: pointer;
+    transition: opacity .3s;
+    z-index: 10;
+  }
+  #play-overlay.hidden { opacity: 0; pointer-events: none; }
+  .play-btn-big {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform .2s, box-shadow .2s;
+    box-shadow: 0 0 40px rgba(232,184,75,0.4);
+  }
+  .play-btn-big:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 60px rgba(232,184,75,0.6);
+  }
+  .play-btn-big svg { width:30px; height:30px; fill:#000; margin-left:4px; }
+  .play-hint {
+    margin-top: 14px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.6);
+    font-weight: 300;
+    letter-spacing: .5px;
+  }
+
+  /* Loading state */
+  #player-loading {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #000;
+    z-index: 5;
+    transition: opacity .3s;
+  }
+  #player-loading.hidden { opacity:0; pointer-events:none; }
+  .spinner {
+    width: 40px; height: 40px;
+    border: 3px solid var(--border);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin .8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .loading-txt {
+    margin-top: 12px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  /* ── SOURCE BUTTONS ── */
+  .source-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .source-label {
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 500;
+    margin-right: 4px;
+  }
+  .src-btn {
+    padding: 7px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--muted);
+    transition: all .2s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .src-btn:hover { border-color: var(--accent); color: var(--text); }
+  .src-btn.active {
+    background: rgba(232,184,75,0.15);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* ── INFO SECTION ── */
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-top: 28px;
+  }
+  @media(min-width:640px) {
+    .info-grid { grid-template-columns: 2fr 1fr; }
+  }
+  .info-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .info-card h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px;
+    letter-spacing: 1.5px;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+  #overview-text {
+    font-size: 14px;
+    line-height: 1.7;
+    color: rgba(232,234,240,0.75);
+  }
+  .detail-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+  }
+  .detail-row:last-child { border-bottom: none; }
+  .detail-row .label { color: var(--muted); }
+  .detail-row .value { color: var(--text); font-weight: 500; }
+
+  /* ── NOTICE ── */
+  .notice {
+    margin-top: 20px;
+    padding: 12px 16px;
+    background: rgba(255,107,53,0.08);
+    border: 1px solid rgba(255,107,53,0.2);
+    border-radius: 8px;
+    font-size: 12px;
+    color: rgba(255,107,53,0.8);
+    line-height: 1.6;
+  }
+
+  /* ── ERROR STATE ── */
+  #error-state {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    text-align: center;
+  }
+  #error-state.show { display: flex; }
+  .error-icon { font-size: 48px; margin-bottom: 16px; }
+  .error-msg { color: var(--muted); font-size: 15px; }
+
+  /* ── SKELETON LOADING ── */
+  .skeleton {
+    background: linear-gradient(90deg, var(--surface) 25%, var(--surface2) 50%, var(--surface) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 6px;
+  }
+  @keyframes shimmer { to { background-position: -200% 0; } }
+</style>
+</head>
+<body>
+
+<div class="backdrop-wrap">
+  <img id="backdrop-img" alt="">
+</div>
+
+<header>
+  <a href="https://flickfacts.tech" class="logo">Flick<span>Facts</span></a>
+  <a href="javascript:history.back()" class="back-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+    Back to Info
+  </a>
+</header>
+
+<div class="container">
+
+  <!-- Movie strip -->
+  <div class="movie-strip">
+    <img id="strip-poster" src="" alt="">
+    <div class="strip-info">
+      <div id="strip-title" class="skeleton" style="height:26px;width:220px;">&nbsp;</div>
+      <div class="strip-meta" id="strip-meta"></div>
+    </div>
+  </div>
+
+  <!-- TV episode controls -->
+  <div id="ep-controls">
+    <select class="ep-select" id="season-select" onchange="updateEpisodes()">
+      <option>Season 1</option>
+    </select>
+    <select class="ep-select" id="episode-select" onchange="loadPlayer()">
+      <option>Episode 1</option>
+    </select>
+  </div>
+
+  <!-- Player -->
+  <div class="player-wrap" id="player-wrap">
+    <div id="player-loading">
+      <div class="spinner"></div>
+      <div class="loading-txt">Loading player...</div>
+    </div>
+    <div id="play-overlay">
+      <div class="play-btn-big">
+        <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      </div>
+      <div class="play-hint">Click to play</div>
+    </div>
+    <iframe id="player-frame" allowfullscreen allow="autoplay; fullscreen" referrerpolicy="origin"></iframe>
+  </div>
+
+  <!-- Source selector -->
+  <div class="source-row">
+    <span class="source-label">SERVER:</span>
+    <button class="src-btn active" onclick="changeSource(0,this)">Server 1</button>
+    <button class="src-btn" onclick="changeSource(1,this)">Server 2</button>
+    <button class="src-btn" onclick="changeSource(2,this)">Server 3</button>
+    <button class="src-btn" onclick="changeSource(3,this)">Server 4</button>
+  </div>
+
+  <!-- Info grid -->
+  <div class="info-grid">
+    <div class="info-card">
+      <h3>Overview</h3>
+      <p id="overview-text" class="skeleton" style="height:80px;">&nbsp;</p>
+    </div>
+    <div class="info-card">
+      <h3>Details</h3>
+      <div id="details-rows"></div>
+    </div>
+  </div>
+
+  <div class="notice">
+    ⚠️ FlickFacts does not host any video content. All streams are provided by third-party embed sources. This site is for informational purposes only.
+  </div>
+
+</div>
+
+<script>
+// ── CONFIG ──
+const TMDB_KEY = '4fc3e39dae386978d3b3c1ed6047a390';
+const SMARTLINK = 'https://abackmentor.com/hh6gncqs?key=e67b408cd31d3ffb5f12cf79b04c3d65';
+
+const SOURCES = {
+  movie: [
+    id => `https://vidsrc.xyz/embed/movie/${id}`,
+    id => `https://vidsrc.to/embed/movie/${id}`,
+    id => `https://2embed.cc/embed/${id}`,
+    id => `https://multiembed.mov/?video_id=${id}&tmdb=1`,
+  ],
+  tv: [
+    (id,s,e) => `https://vidsrc.xyz/embed/tv/${id}/${s}/${e}`,
+    (id,s,e) => `https://vidsrc.to/embed/tv/${id}/${s}/${e}`,
+    (id,s,e) => `https://2embed.cc/embedtv/${id}&s=${s}&e=${e}`,
+    (id,s,e) => `https://multiembed.mov/?video_id=${id}&tmdb=1&s=${s}&e=${e}`,
+  ]
+};
+
+// ── STATE ──
+let state = {
+  type: 'movie',
+  tmdbId: null,
+  season: 1,
+  episode: 1,
+  sourceIdx: 0,
+  totalSeasons: 1,
+  played: false
+};
+
+// ── PARSE URL ──
+function parseUrl() {
+  const p = new URLSearchParams(location.search);
+  // ?type=movie&id=27205
+  // ?type=tv&id=1396&s=1&e=1
+  state.type    = p.get('type') || 'movie';
+  state.tmdbId  = p.get('id');
+  state.season  = parseInt(p.get('s') || 1);
+  state.episode = parseInt(p.get('e') || 1);
+  if (!state.tmdbId) {
+    showError('No content ID provided.');
+  }
+}
+
+// ── FETCH TMDB INFO ──
+async function fetchInfo() {
+  if (!state.tmdbId) return;
+  try {
+    const url = `https://api.themoviedb.org/3/${state.type}/${state.tmdbId}?api_key=${TMDB_KEY}&language=en-US`;
+    const res = await fetch(url);
+    const d   = await res.json();
+
+    const title   = d.title || d.name || '';
+    const year    = (d.release_date || d.first_air_date || '').slice(0,4);
+    const rating  = d.vote_average ? d.vote_average.toFixed(1) : 'N/A';
+    const runtime = d.runtime ? `${d.runtime} min` : (d.episode_run_time?.[0] ? `${d.episode_run_time[0]} min/ep` : 'N/A');
+    const genres  = (d.genres||[]).slice(0,2).map(g=>g.name).join(', ');
+    const overview = d.overview || '';
+    const poster  = d.poster_path ? `https://image.tmdb.org/t/p/w185${d.poster_path}` : '';
+    const backdrop = d.backdrop_path ? `https://image.tmdb.org/t/p/w1280${d.backdrop_path}` : '';
+
+    // Update backdrop
+    if (backdrop) {
+      const img = document.getElementById('backdrop-img');
+      img.src = backdrop;
+      img.onload = () => img.style.opacity = 1;
+    }
+
+    // Update strip
+    document.getElementById('strip-poster').src = poster;
+    const titleEl = document.getElementById('strip-title');
+    titleEl.textContent = title;
+    titleEl.classList.remove('skeleton');
+    titleEl.style = '';
+
+    const metaEl = document.getElementById('strip-meta');
+    metaEl.innerHTML = `
+      <span class="tag gold">★ ${rating}</span>
+      ${year ? `<span class="tag">${year}</span>` : ''}
+      ${genres ? `<span class="tag">${genres}</span>` : ''}
+      <span class="tag">${state.type === 'tv' ? 'TV Show' : 'Movie'}</span>
+    `;
+
+    // Overview
+    const ov = document.getElementById('overview-text');
+    ov.textContent = overview || 'No overview available.';
+    ov.classList.remove('skeleton');
+    ov.style = '';
+
+    // Details
+    const dr = document.getElementById('details-rows');
+    const rows = [
+      ['Rating', rating + ' / 10'],
+      ['Year', year || 'N/A'],
+      ['Runtime', runtime],
+      ['Genres', genres || 'N/A'],
+      ['Language', (d.original_language||'').toUpperCase()],
+    ];
+    if (state.type === 'tv') {
+      rows.push(['Seasons', d.number_of_seasons || 'N/A']);
+      rows.push(['Episodes', d.number_of_episodes || 'N/A']);
+      state.totalSeasons = d.number_of_seasons || 1;
+      buildSeasonSelect();
+    }
+    dr.innerHTML = rows.map(([l,v]) => `
+      <div class="detail-row">
+        <span class="label">${l}</span>
+        <span class="value">${v}</span>
+      </div>`).join('');
+
+    document.title = `Watch ${title} — FlickFacts Player`;
+
+  } catch(e) {
+    console.error(e);
+  }
+}
+
+// ── TV: BUILD SEASON SELECT ──
+function buildSeasonSelect() {
+  const sel = document.getElementById('season-select');
+  sel.innerHTML = '';
+  for (let i = 1; i <= state.totalSeasons; i++) {
+    const o = document.createElement('option');
+    o.value = i; o.textContent = `Season ${i}`;
+    if (i === state.season) o.selected = true;
+    sel.appendChild(o);
+  }
+  document.getElementById('ep-controls').classList.add('show');
+  updateEpisodes();
+}
+
+async function updateEpisodes() {
+  state.season = parseInt(document.getElementById('season-select').value);
+  const sel = document.getElementById('episode-select');
+  sel.innerHTML = '<option>Loading...</option>';
+  try {
+    const url = `https://api.themoviedb.org/3/tv/${state.tmdbId}/season/${state.season}?api_key=${TMDB_KEY}`;
+    const res = await fetch(url);
+    const d   = await res.json();
+    sel.innerHTML = '';
+    (d.episodes||[]).forEach((ep,i) => {
+      const o = document.createElement('option');
+      o.value = ep.episode_number;
+      o.textContent = `Ep ${ep.episode_number}: ${ep.name}`;
+      if (ep.episode_number === state.episode) o.selected = true;
+      sel.appendChild(o);
+    });
+  } catch {
+    sel.innerHTML = '<option value="1">Episode 1</option>';
+  }
+  loadPlayer();
+}
+
+// ── LOAD PLAYER ──
+function loadPlayer() {
+  state.episode = parseInt(document.getElementById('episode-select')?.value || 1);
+  const frame   = document.getElementById('player-frame');
+  const loading = document.getElementById('player-loading');
+
+  loading.classList.remove('hidden');
+
+  let src = '';
+  if (state.type === 'movie') {
+    src = SOURCES.movie[state.sourceIdx](state.tmdbId);
+  } else {
+    src = SOURCES.tv[state.sourceIdx](state.tmdbId, state.season, state.episode);
+  }
+
+  frame.src = src;
+  frame.onload = () => loading.classList.add('hidden');
+  setTimeout(() => loading.classList.add('hidden'), 8000);
+}
+
+// ── PLAY OVERLAY ──
+document.getElementById('play-overlay').addEventListener('click', function() {
+  // Fire smartlink on first play
+  if (!state.played && SMARTLINK && SMARTLINK !== 'YOUR_SMARTLINK_URL') {
+    window.open(SMARTLINK, '_blank');
+  }
+  state.played = true;
+  this.classList.add('hidden');
+  loadPlayer();
+});
+
+// ── CHANGE SOURCE ──
+function changeSource(idx, btn) {
+  state.sourceIdx = idx;
+  document.querySelectorAll('.src-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+
+  // Fire smartlink on server change too
+  if (SMARTLINK && SMARTLINK !== 'YOUR_SMARTLINK_URL') {
+    window.open(SMARTLINK, '_blank');
+  }
+  loadPlayer();
+}
+
+// ── ERROR ──
+function showError(msg) {
+  document.getElementById('player-wrap').style.display = 'none';
+  const e = document.getElementById('error-state');
+  if (!e) return;
+  e.classList.add('show');
+}
+
+// ── INIT ──
+parseUrl();
+if (state.tmdbId) {
+  fetchInfo();
+  // Show play overlay first — don't autoload iframe
+  document.getElementById('player-loading').classList.add('hidden');
+}
+</script>
+
+<!-- Error state (append after player) -->
+<div id="error-state" style="display:none;flex-direction:column;align-items:center;justify-content:center;padding:60px 20px;text-align:center;">
+  <div style="font-size:48px;margin-bottom:16px;">📽️</div>
+  <p style="color:#6b7280;font-size:15px;">Content not found. Please go back and try again.</p>
+</div>
+
+</body>
+</html>
