@@ -4,7 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>FlickFacts Player — Watch Free HD Movies & TV Shows</title>
+<title>Zyflix — Watch Free HD Movies & TV Shows</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23080a0f'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='Georgia,serif' font-weight='900' font-size='38' fill='%23e8b84b'%3EZ%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
 <style>
@@ -122,79 +123,80 @@ header{
 
 /* ── AD BANNERS ── */
 /* Ad 1 — Top Banner */
-.ad-top{
+.prm-bnr{
   background:linear-gradient(135deg,#0d0f1a 0%,#141829 50%,#0d0f1a 100%);
   border-bottom:1px solid var(--border);
   padding:10px 16px;cursor:pointer;
   transition:opacity .2s;
   position:relative;overflow:hidden;
+  display:block !important;visibility:visible !important;
 }
-.ad-top:hover{opacity:.9;}
-.ad-top-inner{
+.prm-bnr:hover{opacity:.9;}
+.prm-bnr-inner{
   max-width:1100px;margin:0 auto;
   display:flex;align-items:center;gap:14px;
 }
-.ad-top-icon{
+.prm-bnr-icon{
   width:38px;height:38px;border-radius:10px;
   background:linear-gradient(135deg,#7c6df0,#5b50d6);
   display:flex;align-items:center;justify-content:center;flex-shrink:0;
 }
-.ad-top-icon svg{width:20px;height:20px;fill:#fff;}
-.ad-top-text{flex:1;min-width:0;}
-.ad-top-headline{font-size:14px;font-weight:500;line-height:1.3;}
-.ad-top-headline strong{color:#a78bfa;}
-.ad-top-sub{font-size:11px;color:var(--muted);margin-top:2px;}
-.ad-top-badges{display:flex;gap:6px;margin-top:5px;flex-wrap:wrap;}
-.ad-badge{font-size:10px;padding:2px 7px;border-radius:4px;background:rgba(124,109,240,0.15);color:#a78bfa;border:1px solid rgba(124,109,240,0.3);}
-.ad-top-stats{text-align:center;flex-shrink:0;display:none;}
-@media(min-width:540px){.ad-top-stats{display:block;}}
-.ad-top-stats-num{font-size:18px;font-weight:700;color:#a78bfa;}
-.ad-top-stats-label{font-size:10px;color:var(--muted);}
-.ad-top-cta{
+.prm-bnr-icon svg{width:20px;height:20px;fill:#fff;}
+.prm-bnr-text{flex:1;min-width:0;}
+.prm-bnr-headline{font-size:14px;font-weight:500;line-height:1.3;}
+.prm-bnr-headline strong{color:#a78bfa;}
+.prm-bnr-sub{font-size:11px;color:var(--muted);margin-top:2px;}
+.prm-bnr-badges{display:flex;gap:6px;margin-top:5px;flex-wrap:wrap;}
+.prm-badge{font-size:10px;padding:2px 7px;border-radius:4px;background:rgba(124,109,240,0.15);color:#a78bfa;border:1px solid rgba(124,109,240,0.3);}
+.prm-bnr-stats{text-align:center;flex-shrink:0;display:none;}
+@media(min-width:540px){.prm-bnr-stats{display:block;}}
+.prm-bnr-stats-num{font-size:18px;font-weight:700;color:#a78bfa;}
+.prm-bnr-stats-label{font-size:10px;color:var(--muted);}
+.prm-bnr-cta{
   flex-shrink:0;padding:9px 18px;border-radius:8px;
   background:linear-gradient(135deg,#7c6df0,#5b50d6);
   color:#fff;font-size:13px;font-weight:600;white-space:nowrap;
   box-shadow:0 4px 20px rgba(124,109,240,0.35);
 }
-.ad-top-label{position:absolute;top:4px;right:8px;font-size:9px;color:var(--muted);opacity:.5;}
+.prm-bnr-label{position:absolute;top:4px;right:8px;font-size:9px;color:var(--muted);opacity:.5;}
 
 /* Ad 2 — Mid Grid Sponsored Card */
-.ad-card{
+.prm-card{
   cursor:pointer;border-radius:10px;overflow:hidden;
   background:linear-gradient(160deg,#12101e,#1a1630);
   border:1px solid rgba(124,109,240,0.35);
   transition:transform .2s,box-shadow .2s;position:relative;
 }
-.ad-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(124,109,240,0.25);}
-.ad-card-pw{aspect-ratio:2/3;background:linear-gradient(160deg,#1a1630,#0f0e1a);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:16px;}
-.ad-card-icon{width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,#7c6df0,#5b50d6);display:flex;align-items:center;justify-content:center;}
-.ad-card-icon svg{width:26px;height:26px;fill:#fff;}
-.ad-card-tagline{font-size:13px;font-weight:600;text-align:center;color:#c4b5fd;line-height:1.4;}
-.ad-card-earn{font-size:20px;font-weight:700;color:#a78bfa;}
-.ad-card-badge{font-size:9px;padding:2px 8px;border-radius:20px;background:rgba(124,109,240,0.2);color:#a78bfa;border:1px solid rgba(124,109,240,0.4);}
-.ad-card-info{padding:8px 10px;}
-.ad-card-title{font-size:12px;font-weight:600;color:#c4b5fd;}
-.ad-card-sub{font-size:10px;color:var(--muted);margin-top:2px;}
-.ad-sponsored{position:absolute;top:7px;left:7px;font-size:9px;padding:2px 6px;background:rgba(124,109,240,0.3);color:#a78bfa;border-radius:4px;border:1px solid rgba(124,109,240,0.4);}
+.prm-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(124,109,240,0.25);}
+.prm-card-pw{aspect-ratio:2/3;background:linear-gradient(160deg,#1a1630,#0f0e1a);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:16px;}
+.prm-card-icon{width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,#7c6df0,#5b50d6);display:flex;align-items:center;justify-content:center;}
+.prm-card-icon svg{width:26px;height:26px;fill:#fff;}
+.prm-card-tagline{font-size:13px;font-weight:600;text-align:center;color:#c4b5fd;line-height:1.4;}
+.prm-card-earn{font-size:20px;font-weight:700;color:#a78bfa;}
+.prm-card-badge{font-size:9px;padding:2px 8px;border-radius:20px;background:rgba(124,109,240,0.2);color:#a78bfa;border:1px solid rgba(124,109,240,0.4);}
+.prm-card-info{padding:8px 10px;}
+.prm-card-title{font-size:12px;font-weight:600;color:#c4b5fd;}
+.prm-card-sub{font-size:10px;color:var(--muted);margin-top:2px;}
+.prm-sponsored{position:absolute;top:7px;left:7px;font-size:9px;padding:2px 6px;background:rgba(124,109,240,0.3);color:#a78bfa;border-radius:4px;border:1px solid rgba(124,109,240,0.4);}
 
 /* Ad 3 — Player Bottom Banner */
-.ad-stream{
+.prm-stream{
   background:linear-gradient(135deg,#0a1628,#0d1f3c);
   border:1px solid rgba(56,139,253,0.25);
   border-radius:12px;padding:14px 18px;
-  display:flex;align-items:center;gap:14px;
+  display:flex !important;align-items:center;gap:14px;
   cursor:pointer;transition:border-color .2s;margin-top:16px;
-  position:relative;
+  position:relative;visibility:visible !important;
 }
-.ad-stream:hover{border-color:rgba(56,139,253,0.5);}
-.ad-stream-icon{width:42px;height:42px;border-radius:10px;background:linear-gradient(135deg,#1e4db7,#1a56db);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.ad-stream-icon svg{width:22px;height:22px;fill:#fff;}
-.ad-stream-text{flex:1;min-width:0;}
-.ad-stream-title{font-size:14px;font-weight:600;color:#93c5fd;}
-.ad-stream-sub{font-size:12px;color:var(--muted);margin-top:2px;}
-.ad-stream-cta{flex-shrink:0;padding:8px 16px;border-radius:8px;background:linear-gradient(135deg,#1e4db7,#1a56db);color:#fff;font-size:12px;font-weight:600;white-space:nowrap;display:none;}
-@media(min-width:480px){.ad-stream-cta{display:block;}}
-.ad-stream-label{position:absolute;top:4px;right:8px;font-size:9px;color:var(--muted);opacity:.5;}
+.prm-stream:hover{border-color:rgba(56,139,253,0.5);}
+.prm-stream-icon{width:42px;height:42px;border-radius:10px;background:linear-gradient(135deg,#1e4db7,#1a56db);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.prm-stream-icon svg{width:22px;height:22px;fill:#fff;}
+.prm-stream-text{flex:1;min-width:0;}
+.prm-stream-title{font-size:14px;font-weight:600;color:#93c5fd;}
+.prm-stream-sub{font-size:12px;color:var(--muted);margin-top:2px;}
+.prm-stream-cta{flex-shrink:0;padding:8px 16px;border-radius:8px;background:linear-gradient(135deg,#1e4db7,#1a56db);color:#fff;font-size:12px;font-weight:600;white-space:nowrap;display:none;}
+@media(min-width:480px){.prm-stream-cta{display:block;}}
+.prm-stream-label{position:absolute;top:4px;right:8px;font-size:9px;color:var(--muted);opacity:.5;}
 
 /* ── HOME PAGE ── */
 .container{max-width:1100px;margin:0 auto;padding:20px 14px 60px;}
@@ -370,16 +372,74 @@ footer{
 .contact-submit:hover{opacity:.88;}
 .contact-email-box{display:flex;align-items:center;gap:10px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin-bottom:16px;}
 .contact-email-box svg{width:18px;height:18px;flex-shrink:0;color:var(--accent);}
+
+/* ── ANTI-ADBLOCK OVERLAY ── */
+#adb-overlay{
+  position:fixed;inset:0;z-index:99999;
+  background:rgba(8,10,15,0.97);
+  backdrop-filter:blur(16px);
+  display:none;align-items:center;justify-content:center;
+  flex-direction:column;text-align:center;padding:24px;
+}
+#adb-overlay.show{display:flex;}
+.adb-box{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:20px;padding:36px 32px;max-width:420px;width:100%;
+  box-shadow:0 40px 100px rgba(0,0,0,0.8);
+  animation:slideUp .4s ease;
+}
+.adb-icon{
+  width:72px;height:72px;border-radius:50%;
+  background:rgba(232,93,93,0.12);border:2px solid rgba(232,93,93,0.3);
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 20px;
+}
+.adb-icon svg{width:32px;height:32px;color:var(--red);}
+.adb-title{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:2px;color:var(--text);margin-bottom:10px;}
+.adb-title span{color:var(--accent);}
+.adb-desc{font-size:13px;color:var(--muted);line-height:1.8;margin-bottom:24px;}
+.adb-steps{text-align:left;background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:24px;}
+.adb-step{display:flex;align-items:flex-start;gap:10px;padding:6px 0;font-size:12px;color:rgba(232,234,240,0.75);line-height:1.6;}
+.adb-step-num{width:20px;height:20px;border-radius:50%;background:rgba(232,184,75,0.15);border:1px solid rgba(232,184,75,0.3);color:var(--accent);font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.adb-btn{
+  width:100%;padding:13px;border-radius:10px;
+  background:var(--accent);color:#000;border:none;
+  font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;
+  cursor:pointer;transition:opacity .2s;letter-spacing:.3px;
+}
+.adb-btn:hover{opacity:.88;}
+.adb-note{font-size:11px;color:var(--muted);margin-top:12px;line-height:1.6;}
 </style>
 </head>
 <body>
+
+<!-- ANTI-ADBLOCK OVERLAY -->
+<div id="adb-overlay">
+  <div class="adb-box">
+    <div class="adb-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+        <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+      </svg>
+    </div>
+    <div class="adb-title">Ad Blocker <span>Detected</span></div>
+    <div class="adb-desc">Zyflix is completely free. We rely on non-intrusive promotions to keep the servers running. Please whitelist us to continue watching.</div>
+    <div class="adb-steps">
+      <div class="adb-step"><div class="adb-step-num">1</div><span>Click your ad blocker icon in the browser toolbar</span></div>
+      <div class="adb-step"><div class="adb-step-num">2</div><span>Select <strong style="color:var(--text)">"Disable on this site"</strong> or <strong style="color:var(--text)">"Pause"</strong></span></div>
+      <div class="adb-step"><div class="adb-step-num">3</div><span>Refresh the page and enjoy free movies &amp; TV</span></div>
+    </div>
+    <button class="adb-btn" onclick="checkAdblocker()">✓ I've Disabled It — Refresh</button>
+    <div class="adb-note">🔒 We never show pop-ups or auto-play audio ads. Your experience is our priority.</div>
+  </div>
+</div>
 
 <div class="backdrop-wrap"><img id="backdrop-img" alt=""></div>
 
 <!-- MOBILE SIDEBAR -->
 <div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
 <div class="sidebar" id="sidebar">
-  <div class="sidebar-logo">Flick<span>Facts</span></div>
+  <div class="sidebar-logo">Zy<span>flix</span></div>
   <button class="sidebar-close" onclick="closeSidebar()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
   <div class="sidebar-section">
     <div class="sidebar-label">Browse</div>
@@ -407,7 +467,7 @@ footer{
   <button class="hamburger" onclick="openSidebar()" aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
-  <div class="logo" onclick="showHome()">Flick<span>Facts</span></div>
+  <div class="logo" onclick="showHome()">Zy<span>flix</span></div>
   <div class="search-wrap">
     <input class="search-input" id="search-input" type="text" placeholder="Search movies & TV..." autocomplete="off">
     <button class="search-btn" onclick="doSearch()">
@@ -424,24 +484,24 @@ footer{
 </header>
 
 <!-- AD 1: TOP BANNER -->
-<div class="ad-top" onclick="adClick()">
-  <div class="ad-top-label">Ad</div>
-  <div class="ad-top-inner">
-    <div class="ad-top-icon"><svg viewBox="0 0 24 24"><path d="M23 6l-9.5 9.5-5-5L1 18"/><path d="M17 6h6v6"/></svg></div>
-    <div class="ad-top-text">
-      <div class="ad-top-headline">Earn <strong>$50–$200/Day</strong> Working Online</div>
-      <div class="ad-top-sub">No experience needed · Free to join · Instant access</div>
-      <div class="ad-top-badges">
-        <span class="ad-badge">✓ Verified</span>
-        <span class="ad-badge">✓ Daily Payouts</span>
-        <span class="ad-badge">✓ Mobile Friendly</span>
+<div class="prm-bnr" onclick="promoClick()">
+  <!-- -->
+  <div class="prm-bnr-inner">
+    <div class="prm-bnr-icon"><svg viewBox="0 0 24 24"><path d="M23 6l-9.5 9.5-5-5L1 18"/><path d="M17 6h6v6"/></svg></div>
+    <div class="prm-bnr-text">
+      <div class="prm-bnr-headline">Earn <strong>$50–$200/Day</strong> Working Online</div>
+      <div class="prm-bnr-sub">No experience needed · Free to join · Instant access</div>
+      <div class="prm-bnr-badges">
+        <span class="prm-badge">✓ Verified</span>
+        <span class="prm-badge">✓ Daily Payouts</span>
+        <span class="prm-badge">✓ Mobile Friendly</span>
       </div>
     </div>
-    <div class="ad-top-stats">
-      <div class="ad-top-stats-num">50,000+</div>
-      <div class="ad-top-stats-label">active earners</div>
+    <div class="prm-bnr-stats">
+      <div class="prm-bnr-stats-num">50,000+</div>
+      <div class="prm-bnr-stats-label">active earners</div>
     </div>
-    <div class="ad-top-cta">Register Free →</div>
+    <div class="prm-bnr-cta">Register Free →</div>
   </div>
 </div>
 
@@ -518,20 +578,20 @@ footer{
       <button class="src-btn" onclick="changeSource(3,this)">Server 4</button>
     </div>
     <!-- AD 3: STREAM BANNER -->
-    <div class="ad-stream" onclick="adClick()">
-      <div class="ad-stream-label">Ad</div>
-      <div class="ad-stream-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
-      <div class="ad-stream-text">
-        <div class="ad-stream-title">⚡ Buffering? Get Faster Stream</div>
-        <div class="ad-stream-sub">Free VPN — unblock & speed up your connection instantly</div>
+    <div class="prm-stream" onclick="promoClick()">
+      <!-- -->
+      <div class="prm-stream-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+      <div class="prm-stream-text">
+        <div class="prm-stream-title">⚡ Buffering? Get Faster Stream</div>
+        <div class="prm-stream-sub">Free VPN — unblock & speed up your connection instantly</div>
       </div>
-      <div class="ad-stream-cta">Get Free →</div>
+      <div class="prm-stream-cta">Get Free →</div>
     </div>
     <div class="info-grid">
       <div class="info-card"><h3>Overview</h3><p id="overview-text">Loading...</p></div>
       <div class="info-card"><h3>Details</h3><div id="details-rows"></div></div>
     </div>
-    <div class="notice">⚠️ FlickFacts does not host any video content. All streams are provided by third-party sources for informational purposes only.</div>
+    <div class="notice">⚠️ Zyflix does not host any video content. All streams are provided by third-party sources for informational purposes only.</div>
   </div>
 </div>
 
@@ -540,7 +600,7 @@ footer{
   <div class="footer-inner">
     <div class="footer-top">
       <div class="footer-brand">
-        <div class="footer-logo">Flick<span>Facts</span></div>
+        <div class="footer-logo">Zy<span>flix</span></div>
         <div class="footer-desc">Your free destination for movies &amp; TV shows. Powered by TMDB data.</div>
         <div class="footer-nohost">
           <span class="nohost-dot"></span>
@@ -565,7 +625,7 @@ footer{
       </div>
     </div>
     <div class="footer-bottom">
-      <div class="footer-copy">© 2018–2026 FlickFacts. All rights reserved.</div>
+      <div class="footer-copy">© 2018–2026 Zyflix. All rights reserved.</div>
       <a class="tmdb-badge" href="https://www.themoviedb.org" target="_blank">
         <div class="tmdb-logo">TMDB</div>
         <div class="tmdb-text">This product uses the TMDB API but is not<br>endorsed or certified by TMDB.</div>
@@ -600,6 +660,67 @@ const SMARTLINK = 'https://skirmishup.com/ydmd0u87b?key=25c21236f2a85715c7956749
 const IMG = 'https://image.tmdb.org/t/p/';
 const API = 'https://api.themoviedb.org/3';
 
+// ── ANTI-ADBLOCK DETECTION
+function detectAdblocker(){
+  // Method 1: fake bait element inject kore check
+  var bait = document.createElement('div');
+  bait.setAttribute('class','pub_300x250 pub_300x250m pub_728x90 text-ad textAd text_ad text_ads text-ads text-ad-links ad-text adSense adBlock adContent adBanner');
+  bait.setAttribute('style','width:1px!important;height:1px!important;position:absolute!important;left:-9999px!important;top:-9999px!important;');
+  document.body.appendChild(bait);
+
+  window.setTimeout(function(){
+    var blocked = false;
+    if(bait.offsetParent===null || bait.offsetHeight===0 || bait.offsetLeft===0 || bait.offsetTop===0 || bait.offsetWidth===0 || bait.clientHeight===0 || bait.clientWidth===0){
+      blocked = true;
+    }
+    if(window.getComputedStyle(bait)){
+      var cs = window.getComputedStyle(bait);
+      if(cs && (cs.getPropertyValue('display')==='none' || cs.getPropertyValue('visibility')==='hidden')){
+        blocked = true;
+      }
+    }
+    document.body.removeChild(bait);
+    if(blocked){
+      document.getElementById('adb-overlay').classList.add('show');
+      document.body.style.overflow='hidden';
+    }
+  }, 200);
+}
+
+function checkAdblocker(){
+  // User e click korle re-detect kore, disabled hole reload
+  var bait = document.createElement('div');
+  bait.setAttribute('class','pub_300x250 ad-banner');
+  bait.setAttribute('style','width:1px!important;height:1px!important;position:absolute!important;left:-9999px!important;top:-9999px!important;');
+  document.body.appendChild(bait);
+  window.setTimeout(function(){
+    var stillBlocked = (bait.offsetHeight===0 || window.getComputedStyle(bait).display==='none');
+    document.body.removeChild(bait);
+    if(stillBlocked){
+      // Still blocked — shake the box
+      var box = document.querySelector('.adb-box');
+      box.style.animation='none';
+      box.offsetHeight; // reflow
+      box.style.animation='shake .4s ease';
+      // Add shake keyframe if not present
+      if(!document.getElementById('shake-style')){
+        var s=document.createElement('style');
+        s.id='shake-style';
+        s.textContent='@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}}';
+        document.head.appendChild(s);
+      }
+    } else {
+      // Disabled! Reload
+      location.reload();
+    }
+  }, 150);
+}
+
+// Page load er 1 second por detect koro
+window.addEventListener('load', function(){
+  setTimeout(detectAdblocker, 1000);
+});
+
 const SOURCES = {
   movie:[
     id      =>`https://vidsrc.xyz/embed/movie/${id}`,
@@ -618,11 +739,19 @@ const SOURCES = {
 let gState = {ep:'trending',mt:'movie',lang:null,page:1};
 let pState = {type:'movie',id:null,s:1,e:1,src:0,clicked:false,seasons:1};
 let clickMap = {};
-let watchlist = JSON.parse(localStorage.getItem('ff_wl')||'{}');
+let watchlist = JSON.parse(localStorage.getItem('zy_wl')||'{}');
 let searchTimer = null;
 
 // ── AD CLICK
-function adClick(){ window.open(SMARTLINK,'_blank'); }
+function promoClick(){
+  var a = document.createElement('a');
+  a.href = SMARTLINK;
+  a.target = '_blank';
+  a.rel = 'noopener';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+}
 
 // ── SIDEBAR
 function openSidebar(){
@@ -650,7 +779,7 @@ function showHome(){
   document.getElementById('page-home').classList.add('active');
   document.getElementById('backdrop-img').style.opacity=0;
   setBottomNav('bnav-home');
-  document.title='FlickFacts Player';
+  document.title='Zyflix Player';
 }
 function showWatchlist(){
   ['page-home','page-watchlist','page-player'].forEach(id=>document.getElementById(id).classList.remove('active'));
@@ -728,19 +857,19 @@ function renderCards(items,mediaType){
     // inject ad card at position 5
     if(i===5){
       const ad=document.createElement('div');
-      ad.className='ad-card';
-      ad.onclick=adClick;
+      ad.className='prm-card';
+      ad.onclick=promoClick;
       ad.innerHTML=`
-        <div class="ad-sponsored">Sponsored</div>
-        <div class="ad-card-pw">
-          <div class="ad-card-icon"><svg viewBox="0 0 24 24"><path d="M23 6l-9.5 9.5-5-5L1 18"/><path d="M17 6h6v6"/></svg></div>
-          <div class="ad-card-earn">$50–$200</div>
-          <div class="ad-card-tagline">Earn Daily<br>Working Online</div>
-          <div class="ad-card-badge">✓ Free to Join</div>
+        <!-- -->
+        <div class="prm-card-pw">
+          <div class="prm-card-icon"><svg viewBox="0 0 24 24"><path d="M23 6l-9.5 9.5-5-5L1 18"/><path d="M17 6h6v6"/></svg></div>
+          <div class="prm-card-earn">$50–$200</div>
+          <div class="prm-card-tagline">Earn Daily<br>Working Online</div>
+          <div class="prm-card-badge">✓ Free to Join</div>
         </div>
-        <div class="ad-card-info">
-          <div class="ad-card-title">Work From Home</div>
-          <div class="ad-card-sub">Tap to get started →</div>
+        <div class="prm-card-info">
+          <div class="prm-card-title">Work From Home</div>
+          <div class="prm-card-sub">Tap to get started →</div>
         </div>`;
       grid.appendChild(ad);
     }
@@ -779,7 +908,7 @@ function toggleWL(e,id,type,title,poster,year,rating){
   const k=`${type}_${id}`;
   if(watchlist[k]) delete watchlist[k];
   else watchlist[k]={id,type,title,poster,year,rating};
-  localStorage.setItem('ff_wl',JSON.stringify(watchlist));
+  localStorage.setItem('zy_wl',JSON.stringify(watchlist));
   // update button
   const btn=e.currentTarget;
   const saved=!!watchlist[k];
@@ -870,7 +999,7 @@ async function fetchPlayerInfo(){
       ${genres?`<span class="tag">${genres}</span>`:''}
       <span class="tag">${pState.type==='tv'?'TV':'Movie'}</span>`;
     document.getElementById('overview-text').textContent=d.overview||'No overview.';
-    document.title=`Watch ${title} — FlickFacts`;
+    document.title=`Watch ${title} — Zyflix`;
     const rows=[['Rating',`${rating}/10`],['Year',year||'N/A'],['Runtime',runtime],['Language',(d.original_language||'').toUpperCase()],['Status',d.status||'N/A']];
     if(pState.type==='tv'){rows.push(['Seasons',d.number_of_seasons||'N/A'],['Episodes',d.number_of_episodes||'N/A']);pState.seasons=d.number_of_seasons||1;buildSeasonSelect();}
     document.getElementById('details-rows').innerHTML=rows.map(([l,v])=>`<div class="detail-row"><span class="label">${l}</span><span class="value">${v}</span></div>`).join('');
@@ -967,50 +1096,50 @@ const MODAL_CONTENT = {
     title: 'Privacy Policy',
     html: `
       <p style="font-size:11px;color:var(--muted);margin-bottom:16px;">Last updated: June 2025</p>
-      <div class="modal-highlight"><p>FlickFacts does not collect, store, or share any personal data. Your privacy is fully respected.</p></div>
+      <div class="modal-highlight"><p>Zyflix does not collect, store, or share any personal data. Your privacy is fully respected.</p></div>
 
       <h3>1. Information We Do Not Collect</h3>
-      <p>FlickFacts does not collect your name, email address, IP address, location, or any personally identifiable information. We do not use cookies for tracking, run analytics scripts, or build user profiles.</p>
+      <p>Zyflix does not collect your name, email address, IP address, location, or any personally identifiable information. We do not use cookies for tracking, run analytics scripts, or build user profiles.</p>
 
       <h3>2. Local Storage</h3>
       <p>Your watchlist is saved exclusively in your browser's <strong>localStorage</strong> — it never leaves your device and is never transmitted to any server. You can clear it at any time by clearing your browser data.</p>
 
       <h3>3. Third-Party Services</h3>
-      <p>FlickFacts uses the following third-party services to provide functionality:</p>
+      <p>Zyflix uses the following third-party services to provide functionality:</p>
       <ul>
         <li><strong>TMDB API</strong> — Movie and TV metadata (posters, ratings, descriptions). Subject to <a href="https://www.themoviedb.org/privacy-policy" target="_blank">TMDB's Privacy Policy</a>.</li>
         <li><strong>Embedded Video Players</strong> — Third-party iframe sources provide video streams. Their own privacy policies and data practices apply independently.</li>
         <li><strong>Google Fonts</strong> — Typography served by Google. Subject to <a href="https://policies.google.com/privacy" target="_blank">Google's Privacy Policy</a>.</li>
       </ul>
-      <p>FlickFacts has no control over the data practices of these third-party providers and accepts no liability for their actions.</p>
+      <p>Zyflix has no control over the data practices of these third-party providers and accepts no liability for their actions.</p>
 
       <h3>4. Advertising</h3>
       <p>This site may display third-party advertisements. Ad providers may use cookies or tracking technologies governed by their own privacy policies. We encourage you to review those policies independently.</p>
 
       <h3>5. Children's Privacy</h3>
-      <p>FlickFacts is not directed at children under the age of 13. We do not knowingly collect information from minors.</p>
+      <p>Zyflix is not directed at children under the age of 13. We do not knowingly collect information from minors.</p>
 
       <h3>6. Changes to This Policy</h3>
       <p>We may update this Privacy Policy from time to time. Continued use of the site after changes constitutes acceptance of the revised policy.</p>
 
       <h3>7. Contact</h3>
-      <p>For privacy-related questions, contact us at <a href="mailto:info@flickfacts.tech">info@flickfacts.tech</a>.</p>
+      <p>For privacy-related questions, contact us at <a href="mailto:info@zyflix.tech">info@zyflix.tech</a>.</p>
     `
   },
   dmca: {
     title: 'DMCA Policy',
     html: `
       <p style="font-size:11px;color:var(--muted);margin-bottom:16px;">Digital Millennium Copyright Act Notice & Takedown Policy</p>
-      <div class="modal-warn"><p>⚠️ FlickFacts does not host, store, upload, or distribute any video content. All streams are embedded from independent third-party sources.</p></div>
+      <div class="modal-warn"><p>⚠️ Zyflix does not host, store, upload, or distribute any video content. All streams are embedded from independent third-party sources.</p></div>
 
       <h3>Our Role</h3>
-      <p>FlickFacts is a content discovery platform powered by TMDB metadata. We provide an interface to publicly available, third-party embedded video players. We have no direct control over the content those sources deliver.</p>
+      <p>Zyflix is a content discovery platform powered by TMDB metadata. We provide an interface to publicly available, third-party embedded video players. We have no direct control over the content those sources deliver.</p>
 
       <h3>Copyright Infringement Claims</h3>
       <p>If you are a copyright owner (or authorized to act on behalf of one) and believe that content accessible through this site infringes your copyright, you may submit a DMCA takedown notice to us. We will investigate and respond within <strong>72 hours</strong>.</p>
 
       <h3>How to Submit a Takedown Notice</h3>
-      <p>Send your notice to <a href="mailto:info@flickfacts.tech">info@flickfacts.tech</a> with the subject line <strong>"DMCA Takedown Request"</strong>. Your notice must include:</p>
+      <p>Send your notice to <a href="mailto:info@zyflix.tech">info@zyflix.tech</a> with the subject line <strong>"DMCA Takedown Request"</strong>. Your notice must include:</p>
       <ul>
         <li>Your full legal name and contact information (email, phone, or address)</li>
         <li>Identification of the copyrighted work you claim is being infringed</li>
@@ -1021,28 +1150,28 @@ const MODAL_CONTENT = {
       </ul>
 
       <h3>Counter-Notification</h3>
-      <p>If you believe content was removed as a result of mistake or misidentification, you may submit a counter-notification to <a href="mailto:info@flickfacts.tech">info@flickfacts.tech</a> with the required DMCA counter-notice elements.</p>
+      <p>If you believe content was removed as a result of mistake or misidentification, you may submit a counter-notification to <a href="mailto:info@zyflix.tech">info@zyflix.tech</a> with the required DMCA counter-notice elements.</p>
 
       <h3>Response Time</h3>
       <div class="modal-highlight"><p>We are committed to responding to all valid DMCA takedown requests within <strong>72 hours</strong> of receipt.</p></div>
 
       <h3>Repeat Infringers</h3>
-      <p>In appropriate circumstances, FlickFacts will disable access to content associated with repeat infringers.</p>
+      <p>In appropriate circumstances, Zyflix will disable access to content associated with repeat infringers.</p>
     `
   },
   terms: {
     title: 'Terms of Use',
     html: `
-      <p style="font-size:11px;color:var(--muted);margin-bottom:16px;">Last updated: June 2025 — Please read these terms carefully before using FlickFacts.</p>
+      <p style="font-size:11px;color:var(--muted);margin-bottom:16px;">Last updated: June 2025 — Please read these terms carefully before using Zyflix.</p>
 
       <h3>1. Acceptance of Terms</h3>
-      <p>By accessing or using FlickFacts ("the Site"), you agree to be bound by these Terms of Use. If you do not agree to these terms, please discontinue use of the Site immediately.</p>
+      <p>By accessing or using Zyflix ("the Site"), you agree to be bound by these Terms of Use. If you do not agree to these terms, please discontinue use of the Site immediately.</p>
 
       <h3>2. Description of Service</h3>
-      <p>FlickFacts is a free movie and TV discovery platform that displays metadata from The Movie Database (TMDB) and embeds video streams from independent third-party sources. We do not host, upload, or control any video content.</p>
+      <p>Zyflix is a free movie and TV discovery platform that displays metadata from The Movie Database (TMDB) and embeds video streams from independent third-party sources. We do not host, upload, or control any video content.</p>
 
       <h3>3. Permitted Use</h3>
-      <p>You may use FlickFacts for personal, non-commercial purposes only. You agree not to:</p>
+      <p>You may use Zyflix for personal, non-commercial purposes only. You agree not to:</p>
       <ul>
         <li>Use the Site for any unlawful purpose or in violation of any applicable laws</li>
         <li>Attempt to gain unauthorized access to any part of the Site or its related systems</li>
@@ -1052,16 +1181,16 @@ const MODAL_CONTENT = {
       </ul>
 
       <h3>4. Third-Party Content & Embeds</h3>
-      <p>FlickFacts embeds video players from external, independent sources. We do not review, endorse, or take responsibility for the content provided by these third parties. Access to such content is at your own discretion and risk.</p>
+      <p>Zyflix embeds video players from external, independent sources. We do not review, endorse, or take responsibility for the content provided by these third parties. Access to such content is at your own discretion and risk.</p>
 
       <h3>5. Intellectual Property</h3>
-      <p>All movie and TV metadata, images, and related information displayed on this Site are sourced from TMDB and remain the property of their respective owners. The FlickFacts brand, interface design, and original code are proprietary to FlickFacts.</p>
+      <p>All movie and TV metadata, images, and related information displayed on this Site are sourced from TMDB and remain the property of their respective owners. The Zyflix brand, interface design, and original code are proprietary to Zyflix.</p>
 
       <h3>6. Disclaimer of Warranties</h3>
-      <p>FlickFacts is provided "as is" and "as available" without warranties of any kind, either express or implied. We do not warrant that the Site will be uninterrupted, error-free, or free of harmful components. Video availability may change without notice.</p>
+      <p>Zyflix is provided "as is" and "as available" without warranties of any kind, either express or implied. We do not warrant that the Site will be uninterrupted, error-free, or free of harmful components. Video availability may change without notice.</p>
 
       <h3>7. Limitation of Liability</h3>
-      <p>To the fullest extent permitted by applicable law, FlickFacts and its operators shall not be liable for any indirect, incidental, consequential, special, or punitive damages arising out of your use of — or inability to use — the Site or any content accessed through it.</p>
+      <p>To the fullest extent permitted by applicable law, Zyflix and its operators shall not be liable for any indirect, incidental, consequential, special, or punitive damages arising out of your use of — or inability to use — the Site or any content accessed through it.</p>
 
       <h3>8. Modifications & Termination</h3>
       <p>We reserve the right to modify, suspend, or discontinue the Site or any part of it at any time without notice. We may also update these Terms of Use periodically. Your continued use of the Site after any such changes constitutes acceptance of the updated terms.</p>
@@ -1076,7 +1205,7 @@ const MODAL_CONTENT = {
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
         <div>
           <div style="font-size:11px;color:var(--muted);margin-bottom:2px;">Direct Email</div>
-          <a href="mailto:info@flickfacts.tech" style="font-size:14px;font-weight:500;">info@flickfacts.tech</a>
+          <a href="mailto:info@zyflix.tech" style="font-size:14px;font-weight:500;">info@zyflix.tech</a>
         </div>
       </div>
 
@@ -1125,7 +1254,7 @@ function submitContactForm() {
   const subject = document.getElementById('cf-subject').value.trim();
   const message = document.getElementById('cf-message').value.trim();
   if (!name || !email || !message) { toast('Please fill in all required fields.'); return; }
-  const mailto = `mailto:info@flickfacts.tech?subject=${encodeURIComponent(subject||'FlickFacts Contact')}&body=${encodeURIComponent('Name: '+name+'\nEmail: '+email+'\n\n'+message)}`;
+  const mailto = `mailto:info@zyflix.tech?subject=${encodeURIComponent(subject||'Zyflix Contact')}&body=${encodeURIComponent('Name: '+name+'\nEmail: '+email+'\n\n'+message)}`;
   window.location.href = mailto;
 }
 
