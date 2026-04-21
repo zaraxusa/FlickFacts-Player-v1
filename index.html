@@ -311,7 +311,31 @@ footer{
 .footer-copy{font-size:11px;color:var(--muted);}
 .tmdb-badge{display:flex;align-items:center;gap:8px;text-decoration:none;}
 .tmdb-logo{background:#01d277;color:#000;font-weight:800;font-size:11px;padding:4px 8px;border-radius:4px;letter-spacing:.5px;font-family:'DM Sans',sans-serif;}
-.tmdb-text{font-size:10px;color:var(--muted);line-height:1.4;}
+.footer-nohost{
+  display:inline-flex;align-items:center;gap:8px;
+  margin-top:10px;padding:6px 12px 6px 10px;
+  background:rgba(232,93,93,0.07);
+  border:1px solid rgba(232,93,93,0.25);
+  border-radius:20px;cursor:default;
+  transition:border-color .3s,background .3s;
+}
+.footer-nohost:hover{background:rgba(232,93,93,0.12);border-color:rgba(232,93,93,0.45);}
+.nohost-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--red);flex-shrink:0;
+  box-shadow:0 0 0 0 rgba(232,93,93,0.6);
+  animation:pulse-dot 2s ease-in-out infinite;
+}
+@keyframes pulse-dot{
+  0%{box-shadow:0 0 0 0 rgba(232,93,93,0.6);}
+  60%{box-shadow:0 0 0 6px rgba(232,93,93,0);}
+  100%{box-shadow:0 0 0 0 rgba(232,93,93,0);}
+}
+.nohost-text{
+  font-size:11px;font-weight:500;color:var(--red);
+  letter-spacing:.3px;
+}
+
 
 /* MODAL */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:1000;display:none;align-items:flex-end;justify-content:center;backdrop-filter:blur(4px);}
@@ -517,7 +541,11 @@ footer{
     <div class="footer-top">
       <div class="footer-brand">
         <div class="footer-logo">Flick<span>Facts</span></div>
-        <div class="footer-desc">Your free destination for movies & TV shows. Powered by TMDB data. We do not host any video content.</div>
+        <div class="footer-desc">Your free destination for movies &amp; TV shows. Powered by TMDB data.</div>
+        <div class="footer-nohost">
+          <span class="nohost-dot"></span>
+          <span class="nohost-text">We do not host any video content</span>
+        </div>
       </div>
       <div class="footer-links">
         <div class="footer-col">
@@ -537,7 +565,7 @@ footer{
       </div>
     </div>
     <div class="footer-bottom">
-      <div class="footer-copy">© 2025 FlickFacts. All rights reserved.</div>
+      <div class="footer-copy">© 2018–2026 FlickFacts. All rights reserved.</div>
       <a class="tmdb-badge" href="https://www.themoviedb.org" target="_blank">
         <div class="tmdb-logo">TMDB</div>
         <div class="tmdb-text">This product uses the TMDB API but is not<br>endorsed or certified by TMDB.</div>
@@ -931,6 +959,174 @@ function toast(msg){
   if(!el){el=document.createElement('div');el.id='_toast';el.style.cssText='position:fixed;bottom:74px;left:50%;transform:translateX(-50%);background:var(--surface);border:1px solid var(--accent);color:var(--text);padding:10px 20px;border-radius:10px;font-size:13px;z-index:9999;box-shadow:0 8px 30px rgba(0,0,0,0.7);transition:opacity .3s;pointer-events:none;white-space:nowrap;';document.body.appendChild(el);}
   el.textContent=msg;el.style.opacity='1';
   clearTimeout(el._t);el._t=setTimeout(()=>el.style.opacity='0',2600);
+}
+
+// ── MODALS
+const MODAL_CONTENT = {
+  privacy: {
+    title: 'Privacy Policy',
+    html: `
+      <p style="font-size:11px;color:var(--muted);margin-bottom:16px;">Last updated: June 2025</p>
+      <div class="modal-highlight"><p>FlickFacts does not collect, store, or share any personal data. Your privacy is fully respected.</p></div>
+
+      <h3>1. Information We Do Not Collect</h3>
+      <p>FlickFacts does not collect your name, email address, IP address, location, or any personally identifiable information. We do not use cookies for tracking, run analytics scripts, or build user profiles.</p>
+
+      <h3>2. Local Storage</h3>
+      <p>Your watchlist is saved exclusively in your browser's <strong>localStorage</strong> — it never leaves your device and is never transmitted to any server. You can clear it at any time by clearing your browser data.</p>
+
+      <h3>3. Third-Party Services</h3>
+      <p>FlickFacts uses the following third-party services to provide functionality:</p>
+      <ul>
+        <li><strong>TMDB API</strong> — Movie and TV metadata (posters, ratings, descriptions). Subject to <a href="https://www.themoviedb.org/privacy-policy" target="_blank">TMDB's Privacy Policy</a>.</li>
+        <li><strong>Embedded Video Players</strong> — Third-party iframe sources provide video streams. Their own privacy policies and data practices apply independently.</li>
+        <li><strong>Google Fonts</strong> — Typography served by Google. Subject to <a href="https://policies.google.com/privacy" target="_blank">Google's Privacy Policy</a>.</li>
+      </ul>
+      <p>FlickFacts has no control over the data practices of these third-party providers and accepts no liability for their actions.</p>
+
+      <h3>4. Advertising</h3>
+      <p>This site may display third-party advertisements. Ad providers may use cookies or tracking technologies governed by their own privacy policies. We encourage you to review those policies independently.</p>
+
+      <h3>5. Children's Privacy</h3>
+      <p>FlickFacts is not directed at children under the age of 13. We do not knowingly collect information from minors.</p>
+
+      <h3>6. Changes to This Policy</h3>
+      <p>We may update this Privacy Policy from time to time. Continued use of the site after changes constitutes acceptance of the revised policy.</p>
+
+      <h3>7. Contact</h3>
+      <p>For privacy-related questions, contact us at <a href="mailto:info@flickfacts.tech">info@flickfacts.tech</a>.</p>
+    `
+  },
+  dmca: {
+    title: 'DMCA Policy',
+    html: `
+      <p style="font-size:11px;color:var(--muted);margin-bottom:16px;">Digital Millennium Copyright Act Notice & Takedown Policy</p>
+      <div class="modal-warn"><p>⚠️ FlickFacts does not host, store, upload, or distribute any video content. All streams are embedded from independent third-party sources.</p></div>
+
+      <h3>Our Role</h3>
+      <p>FlickFacts is a content discovery platform powered by TMDB metadata. We provide an interface to publicly available, third-party embedded video players. We have no direct control over the content those sources deliver.</p>
+
+      <h3>Copyright Infringement Claims</h3>
+      <p>If you are a copyright owner (or authorized to act on behalf of one) and believe that content accessible through this site infringes your copyright, you may submit a DMCA takedown notice to us. We will investigate and respond within <strong>72 hours</strong>.</p>
+
+      <h3>How to Submit a Takedown Notice</h3>
+      <p>Send your notice to <a href="mailto:info@flickfacts.tech">info@flickfacts.tech</a> with the subject line <strong>"DMCA Takedown Request"</strong>. Your notice must include:</p>
+      <ul>
+        <li>Your full legal name and contact information (email, phone, or address)</li>
+        <li>Identification of the copyrighted work you claim is being infringed</li>
+        <li>The specific URL(s) on our site where the allegedly infringing content appears</li>
+        <li>A statement that you have a good-faith belief that the use is not authorized by the copyright owner, its agent, or the law</li>
+        <li>A statement that the information in the notice is accurate and, under penalty of perjury, that you are authorized to act on behalf of the copyright owner</li>
+        <li>Your physical or electronic signature</li>
+      </ul>
+
+      <h3>Counter-Notification</h3>
+      <p>If you believe content was removed as a result of mistake or misidentification, you may submit a counter-notification to <a href="mailto:info@flickfacts.tech">info@flickfacts.tech</a> with the required DMCA counter-notice elements.</p>
+
+      <h3>Response Time</h3>
+      <div class="modal-highlight"><p>We are committed to responding to all valid DMCA takedown requests within <strong>72 hours</strong> of receipt.</p></div>
+
+      <h3>Repeat Infringers</h3>
+      <p>In appropriate circumstances, FlickFacts will disable access to content associated with repeat infringers.</p>
+    `
+  },
+  terms: {
+    title: 'Terms of Use',
+    html: `
+      <p style="font-size:11px;color:var(--muted);margin-bottom:16px;">Last updated: June 2025 — Please read these terms carefully before using FlickFacts.</p>
+
+      <h3>1. Acceptance of Terms</h3>
+      <p>By accessing or using FlickFacts ("the Site"), you agree to be bound by these Terms of Use. If you do not agree to these terms, please discontinue use of the Site immediately.</p>
+
+      <h3>2. Description of Service</h3>
+      <p>FlickFacts is a free movie and TV discovery platform that displays metadata from The Movie Database (TMDB) and embeds video streams from independent third-party sources. We do not host, upload, or control any video content.</p>
+
+      <h3>3. Permitted Use</h3>
+      <p>You may use FlickFacts for personal, non-commercial purposes only. You agree not to:</p>
+      <ul>
+        <li>Use the Site for any unlawful purpose or in violation of any applicable laws</li>
+        <li>Attempt to gain unauthorized access to any part of the Site or its related systems</li>
+        <li>Scrape, crawl, or extract data from the Site using automated tools without prior written consent</li>
+        <li>Reproduce, redistribute, or commercially exploit any content displayed on the Site</li>
+        <li>Transmit any malicious code, viruses, or harmful content through the Site</li>
+      </ul>
+
+      <h3>4. Third-Party Content & Embeds</h3>
+      <p>FlickFacts embeds video players from external, independent sources. We do not review, endorse, or take responsibility for the content provided by these third parties. Access to such content is at your own discretion and risk.</p>
+
+      <h3>5. Intellectual Property</h3>
+      <p>All movie and TV metadata, images, and related information displayed on this Site are sourced from TMDB and remain the property of their respective owners. The FlickFacts brand, interface design, and original code are proprietary to FlickFacts.</p>
+
+      <h3>6. Disclaimer of Warranties</h3>
+      <p>FlickFacts is provided "as is" and "as available" without warranties of any kind, either express or implied. We do not warrant that the Site will be uninterrupted, error-free, or free of harmful components. Video availability may change without notice.</p>
+
+      <h3>7. Limitation of Liability</h3>
+      <p>To the fullest extent permitted by applicable law, FlickFacts and its operators shall not be liable for any indirect, incidental, consequential, special, or punitive damages arising out of your use of — or inability to use — the Site or any content accessed through it.</p>
+
+      <h3>8. Modifications & Termination</h3>
+      <p>We reserve the right to modify, suspend, or discontinue the Site or any part of it at any time without notice. We may also update these Terms of Use periodically. Your continued use of the Site after any such changes constitutes acceptance of the updated terms.</p>
+    `
+  },
+  contact: {
+    title: 'Contact Us',
+    html: `
+      <p style="font-size:13px;color:rgba(232,234,240,0.72);margin-bottom:18px;">Have a question, DMCA request, or feedback? We'd love to hear from you.</p>
+
+      <div class="contact-email-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        <div>
+          <div style="font-size:11px;color:var(--muted);margin-bottom:2px;">Direct Email</div>
+          <a href="mailto:info@flickfacts.tech" style="font-size:14px;font-weight:500;">info@flickfacts.tech</a>
+        </div>
+      </div>
+
+      <div class="modal-divider"></div>
+      <p style="font-size:13px;font-weight:500;color:var(--text);margin-bottom:14px;">Or send a message below:</p>
+
+      <div class="contact-row">
+        <label>Your Name</label>
+        <input class="contact-input" id="cf-name" type="text" placeholder="John Doe" autocomplete="off">
+      </div>
+      <div class="contact-row">
+        <label>Email Address</label>
+        <input class="contact-input" id="cf-email" type="email" placeholder="you@example.com" autocomplete="off">
+      </div>
+      <div class="contact-row">
+        <label>Subject</label>
+        <input class="contact-input" id="cf-subject" type="text" placeholder="e.g. DMCA Notice, General Inquiry..." autocomplete="off">
+      </div>
+      <div class="contact-row">
+        <label>Message</label>
+        <textarea class="contact-textarea" id="cf-message" placeholder="Write your message here..."></textarea>
+      </div>
+      <button class="contact-submit" onclick="submitContactForm()">Send Message →</button>
+    `
+  }
+};
+
+function openModal(type) {
+  const content = MODAL_CONTENT[type];
+  if (!content) return;
+  document.getElementById('modal-title').textContent = content.title;
+  document.getElementById('modal-body').innerHTML = content.html;
+  document.getElementById('modal-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeModalOutside(e) {
+  if (e.target === document.getElementById('modal-overlay')) closeModal();
+}
+function submitContactForm() {
+  const name    = document.getElementById('cf-name').value.trim();
+  const email   = document.getElementById('cf-email').value.trim();
+  const subject = document.getElementById('cf-subject').value.trim();
+  const message = document.getElementById('cf-message').value.trim();
+  if (!name || !email || !message) { toast('Please fill in all required fields.'); return; }
+  const mailto = `mailto:info@flickfacts.tech?subject=${encodeURIComponent(subject||'FlickFacts Contact')}&body=${encodeURIComponent('Name: '+name+'\nEmail: '+email+'\n\n'+message)}`;
+  window.location.href = mailto;
 }
 
 // ── INIT
