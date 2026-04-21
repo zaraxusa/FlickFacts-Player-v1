@@ -312,6 +312,40 @@ footer{
 .tmdb-badge{display:flex;align-items:center;gap:8px;text-decoration:none;}
 .tmdb-logo{background:#01d277;color:#000;font-weight:800;font-size:11px;padding:4px 8px;border-radius:4px;letter-spacing:.5px;font-family:'DM Sans',sans-serif;}
 .tmdb-text{font-size:10px;color:var(--muted);line-height:1.4;}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:1000;display:none;align-items:flex-end;justify-content:center;backdrop-filter:blur(4px);}
+@media(min-width:600px){.modal-overlay{align-items:center;}}
+.modal-overlay.open{display:flex;}
+.modal-box{background:var(--surface);border:1px solid var(--border);border-radius:16px 16px 0 0;width:100%;max-width:640px;max-height:88vh;overflow-y:auto;animation:slideUp .3s ease;}
+@media(min-width:600px){.modal-box{border-radius:16px;max-height:80vh;}}
+@keyframes slideUp{from{transform:translateY(60px);opacity:0}to{transform:translateY(0);opacity:1}}
+.modal-header{display:flex;align-items:center;justify-content:space-between;padding:18px 20px 14px;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--surface);z-index:2;}
+.modal-title{font-family:"Bebas Neue",sans-serif;font-size:20px;letter-spacing:1.5px;color:var(--accent);}
+.modal-close{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:6px 12px;cursor:pointer;color:var(--muted);transition:all .2s;font-size:16px;line-height:1;}
+.modal-close:hover{color:var(--text);border-color:var(--accent);}
+.modal-body{padding:20px;}
+.modal-body h3{font-size:14px;font-weight:600;color:var(--text);margin:18px 0 8px;}
+.modal-body h3:first-child{margin-top:0;}
+.modal-body p{font-size:13px;color:rgba(232,234,240,0.72);line-height:1.8;margin-bottom:8px;}
+.modal-body ul{padding-left:18px;margin-bottom:10px;}
+.modal-body ul li{font-size:13px;color:rgba(232,234,240,0.72);line-height:1.8;}
+.modal-body a{color:var(--accent);text-decoration:none;}
+.modal-body a:hover{text-decoration:underline;}
+.modal-divider{height:1px;background:var(--border);margin:16px 0;}
+.modal-highlight{background:rgba(232,184,75,0.08);border:1px solid rgba(232,184,75,0.2);border-radius:10px;padding:14px 16px;margin:12px 0;}
+.modal-highlight p{color:var(--accent);margin:0;font-size:13px;}
+.modal-warn{background:rgba(232,93,93,0.08);border:1px solid rgba(232,93,93,0.2);border-radius:10px;padding:14px 16px;margin:12px 0;}
+.modal-warn p{color:#f87171;margin:0;font-size:13px;}
+.contact-row{margin-bottom:14px;}
+.contact-row label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px;font-weight:500;}
+.contact-input,.contact-textarea{width:100%;background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:10px 14px;border-radius:8px;font-family:"DM Sans",sans-serif;font-size:13px;outline:none;transition:border-color .2s;}
+.contact-input:focus,.contact-textarea:focus{border-color:var(--accent);}
+.contact-textarea{resize:vertical;min-height:100px;}
+.contact-submit{width:100%;padding:11px;background:var(--accent);color:#000;border:none;border-radius:8px;font-family:"DM Sans",sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:opacity .2s;margin-top:4px;}
+.contact-submit:hover{opacity:.88;}
+.contact-email-box{display:flex;align-items:center;gap:10px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin-bottom:16px;}
+.contact-email-box svg{width:18px;height:18px;flex-shrink:0;color:var(--accent);}
 </style>
 </head>
 <body>
@@ -495,10 +529,10 @@ footer{
         </div>
         <div class="footer-col">
           <h4>Legal</h4>
-          <a>DMCA</a>
-          <a>Privacy Policy</a>
-          <a>Terms of Use</a>
-          <a>Contact</a>
+          <a onclick="openModal('dmca')">DMCA</a>
+          <a onclick="openModal('privacy')">Privacy Policy</a>
+          <a onclick="openModal('terms')">Terms of Use</a>
+          <a onclick="openModal('contact')">Contact</a>
         </div>
       </div>
     </div>
@@ -908,5 +942,16 @@ updateWLCount();
   else fetchGrid();
 })();
 </script>
+
+<!-- MODALS -->
+<div class='modal-overlay' id='modal-overlay' onclick='closeModalOutside(event)'>
+  <div class='modal-box' id='modal-box'>
+    <div class='modal-header'>
+      <div class='modal-title' id='modal-title'>Title</div>
+      <button class='modal-close' onclick='closeModal()'>✕</button>
+    </div>
+    <div class='modal-body' id='modal-body'></div>
+  </div>
+</div>
 </body>
 </html>
